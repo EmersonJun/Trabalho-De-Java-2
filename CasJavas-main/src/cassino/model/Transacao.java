@@ -20,7 +20,6 @@ public class Transacao {
         this.descricao = descricao;
     }
     
-    // Getters
     public LocalDateTime getDataHora() { return dataHora; }
     public TipoTransacao getTipo() { return tipo; }
     public double getValor() { return valor; }

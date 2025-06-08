@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 public class LogEntry {
     private LocalDateTime timestamp;
-    private String tipo; // "GANHO", "PERDA", "DEPOSITO", "SAQUE"
-    private String jogo; // "Roleta", "Caça-Níqueis", "Crash", "Sistema"
+    private String tipo; 
+    private String jogo;
     private double valor;
     private String descricao;
     private double saldoAnterior;
@@ -23,7 +23,6 @@ public class LogEntry {
         this.saldoAtual = saldoAtual;
     }
     
-    // Getters
     public LocalDateTime getTimestamp() { return timestamp; }
     public String getTipo() { return tipo; }
     public String getJogo() { return jogo; }

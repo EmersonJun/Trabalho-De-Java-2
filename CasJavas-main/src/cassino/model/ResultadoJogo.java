@@ -5,7 +5,7 @@ public class ResultadoJogo {
     private double valorGanho;
     private String mensagem;
     private DadosExtras dadosExtras;
-    private Object dadosJogo; // Campo adicional para dados específicos do jogo
+    private Object dadosJogo; 
     
     public ResultadoJogo(boolean ganhou, double valorGanho, String mensagem) {
         this.ganhou = ganhou;
@@ -20,13 +20,11 @@ public class ResultadoJogo {
         this.dadosExtras = dadosExtras;
     }
     
-    // Construtor adicional para dados específicos do jogo (números da roleta, símbolos, etc.)
     public ResultadoJogo(boolean ganhou, double valorGanho, String mensagem, Object dadosJogo) {
         this(ganhou, valorGanho, mensagem);
         this.dadosJogo = dadosJogo;
     }
     
-    // Getters
     public boolean isGanhou() { 
         return ganhou; 
     }
@@ -47,7 +45,6 @@ public class ResultadoJogo {
         return dadosJogo;
     }
     
-    // Setters (caso necessário)
     public void setDadosExtras(DadosExtras dadosExtras) {
         this.dadosExtras = dadosExtras;
     }

@@ -1,5 +1,6 @@
 package cassino.controller;
 import cassino.view.CasinoView;
+import cassino.factory.JogoFactory;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -13,7 +14,6 @@ public class CasinoController {
     private CasinoView view;
     private Roleta roleta;
     private CacaNiqueis cacaNiqueis;
-    private Crash crash;
     private Scanner scanner;
     
     public CasinoController() {
@@ -24,22 +24,21 @@ public class CasinoController {
     public void iniciar() throws InterruptedException {
         view.mostrarBoasVindas();
         
-        // Loop principal do sistema
+        
         while (true) {
             if (usuarioLogado == null) {
-                // Se não há usuário logado, mostrar menu de login
+                
                 if (!mostrarMenuLogin()) {
-                    // Se usuário escolheu sair, encerrar aplicação
+                    
                     view.mostrarMensagem("Obrigado por visitar o Casino Unificado!");
                     break;
                 }
             } else {
-                // Se há usuário logado, mostrar menu principal do casino
+                
                 if (!executarSessaoCasino()) {
-                    // Se usuário fez logout, continuar para próxima iteração
+                    
                     continue;
                 }
-                // Se retornou false por saldo insuficiente, fazer logout automático
                 fazerLogout();
             }
         }
@@ -61,16 +60,16 @@ public class CasinoController {
             switch (opcao) {
                 case "1":
                     if (fazerLogin()) {
-                        return true; // Login bem-sucedido
+                        return true; 
                     }
                     break;
                 case "2":
                     if (criarNovaConta()) {
-                        return true; // Conta criada e login automático
+                        return true; 
                     }
                     break;
                 case "3":
-                    return false; // Sair do sistema
+                    return false; 
                 default:
                     view.mostrarMensagem("Opção inválida! Tente novamente.");
             }
@@ -82,17 +81,21 @@ public class CasinoController {
         view.mostrarMensagem("Digite seu CPF (ou 'voltar' para retornar): ");
         String cpf = scanner.nextLine().trim();
         
-        if ("voltar".equalsIgnoreCase(cpf)) {
-            return false;
-        }
-        
         if (usuarios.containsKey(cpf)) {
-            usuarioLogado = usuarios.get(cpf);
-            
-            // Recriar objetos dos jogos para o usuário logado
-            roleta = new Roleta(usuarioLogado);
-            cacaNiqueis = new CacaNiqueis(usuarioLogado);
-            crash = new Crash(usuarioLogado);
+            Usuario usuario = usuarios.get(cpf);
+
+            view.mostrarMensagem("Digite sua senha: ");
+            String senhaDigitada = scanner.nextLine().trim();
+
+                if (!usuario.getSenha().equals(senhaDigitada)) {
+                    view.mostrarMensagem("Senha incorreta. Tente novamente.");
+                    return false;
+                }
+                    usuarioLogado = usuario;
+
+            roleta = (Roleta) JogoFactory.criarJogo("roleta", usuarioLogado);
+            cacaNiqueis = (CacaNiqueis) JogoFactory.criarJogo("caca-niqueis", usuarioLogado);
+
             
             view.mostrarMensagem("=".repeat(50));
             view.mostrarMensagem("Login realizado com sucesso!");
@@ -100,7 +103,7 @@ public class CasinoController {
             view.mostrarMensagem("=".repeat(50));
             return true;
         } else {
-            view.mostrarMensagem("❌ CPF não encontrado no sistema.");
+            view.mostrarMensagem("CPF não encontrado no sistema.");
             view.mostrarMensagem("Verifique o CPF ou crie uma nova conta.");
             return false;
         }
@@ -124,9 +127,16 @@ public class CasinoController {
             view.mostrarMensagem("CPF não pode estar vazio!");
             return false;
         }
+        view.mostrarMensagem("Digite uma senha para sua conta: ");
+            String senha = scanner.nextLine().trim();
+
+        if (senha.isEmpty()) {
+            view.mostrarMensagem("senha não pode estar vazio!");
+            return false;
+        }
         
         if (usuarios.containsKey(cpf)) {
-            view.mostrarMensagem("❌ CPF já cadastrado no sistema!");
+            view.mostrarMensagem("CPF já cadastrado no sistema!");
             view.mostrarMensagem("Use a opção de login ou utilize outro CPF.");
             return false;
         }
@@ -139,18 +149,16 @@ public class CasinoController {
         
         double saldoInicial = obterSaldoInicial();
         
-        // Criar novo usuário
-        Usuario novoUsuario = new Usuario(nome, cpf, numeroConta, agencia, saldoInicial);
+        Usuario novoUsuario = new Usuario(nome, cpf, numeroConta, agencia, saldoInicial, senha);
         usuarios.put(cpf, novoUsuario);
         
-        // Fazer login automático
         usuarioLogado = novoUsuario;
-        roleta = new Roleta(usuarioLogado);
-        cacaNiqueis = new CacaNiqueis(usuarioLogado);
-        crash = new Crash(usuarioLogado);
+        roleta = (Roleta) JogoFactory.criarJogo("roleta", usuarioLogado);
+        cacaNiqueis = (CacaNiqueis) JogoFactory.criarJogo("caca-niqueis", usuarioLogado);
+
         
         view.mostrarMensagem("=".repeat(50));
-        view.mostrarMensagem("✅ Conta criada com sucesso!");
+        view.mostrarMensagem("Conta criada com sucesso!");
         view.mostrarMensagem("Bem-vindo ao Casino Unificado, " + nome + "!");
         view.mostrarMensagem("Seu saldo inicial é: R$" + String.format("%.2f", saldoInicial));
         view.mostrarMensagem("=".repeat(50));
@@ -164,12 +172,12 @@ public class CasinoController {
             try {
                 double saldo = Double.parseDouble(scanner.nextLine().trim());
                 if (saldo < 1.00) {
-                    view.mostrarMensagem("⚠️  Saldo mínimo é R$1.00");
+                    view.mostrarMensagem("Saldo mínimo é R$1.00");
                     continue;
                 }
                 return saldo;
             } catch (NumberFormatException e) {
-                view.mostrarMensagem("❌ Valor inválido! Digite apenas números.");
+                view.mostrarMensagem("Valor inválido! Digite apenas números.");
             }
         }
     }
@@ -187,22 +195,18 @@ public class CasinoController {
                     jogarCacaNiqueis();
                     break;
                 case 3:
-                    jogarCrash();
-                    break;
-                case 4:
-                    // Sair/Logout
                     fazerLogout();
-                    return true; // Retorna para o menu de login
-                case 5:
+                    return true; 
+                case 4:
                     realizarDeposito();
                     break;
-                case 6:
+                case 5:
                     realizarSaque();
                     break;
-                case 7:
+                case 6:
                     mostrarMenuHistorico();
                     break;
-                case 8:
+                case 7:
                     view.mostrarEstatisticas(usuarioLogado);
                     break;
                 default:
@@ -211,10 +215,11 @@ public class CasinoController {
         }
         
         if (usuarioLogado != null && usuarioLogado.getSaldo() < 0.10) {
-            view.mostrarMensagem("\n⚠️  Saldo insuficiente para continuar jogando!");
+            view.mostrarMensagem("\nSaldo insuficiente para continuar jogando!");
             view.mostrarMensagem("Saldo mínimo necessário: R$0.10");
             view.mostrarMensagem("Faça um depósito ou entre em contato conosco.");
-            return false; // Forçar logout
+            usuarioLogado.adicionarSaldo(0.10);
+            return false; 
         }
         
         return true;
@@ -222,7 +227,7 @@ public class CasinoController {
     
     private void fazerLogout() {
         if (usuarioLogado != null) {
-            // Salvar estatísticas finais no arquivo de log
+
             usuarioLogado.getLogManager().salvarEstatisticasNoArquivo();
             
             view.mostrarMensagem("\n" + "=".repeat(50));
@@ -236,7 +241,6 @@ public class CasinoController {
             usuarioLogado = null;
             roleta = null;
             cacaNiqueis = null;
-            crash = null;
         }
     }
     
@@ -244,9 +248,9 @@ public class CasinoController {
         double deposito = view.obterDeposito();
         if (deposito > 0) {
             usuarioLogado.adicionarSaldo(deposito);
-            view.mostrarMensagem("✅ Depósito de R$" + String.format("%.2f", deposito) + " realizado com sucesso!");
+            view.mostrarMensagem("Depósito de R$" + String.format("%.2f", deposito) + " realizado com sucesso!");
         } else {
-            view.mostrarMensagem("❌ Valor de depósito inválido.");
+            view.mostrarMensagem("Valor de depósito inválido.");
         }
     }
     
@@ -254,7 +258,7 @@ public class CasinoController {
         double saque = view.obterSaque(usuarioLogado.getSaldo());
         if (saque > 0) {
             usuarioLogado.retirarSaldo(saque);
-            view.mostrarMensagem("✅ Saque de R$" + String.format("%.2f", saque) + " realizado com sucesso!");
+            view.mostrarMensagem("Saque de R$" + String.format("%.2f", saque) + " realizado com sucesso!");
         } else {
             view.mostrarMensagem("❌ Valor de saque inválido ou cancelado.");
         }
@@ -317,17 +321,6 @@ public class CasinoController {
         
         view.mostrarAnimacaoCacaNiqueis();
         ResultadoJogo resultado = cacaNiqueis.jogar(aposta);
-        view.mostrarResultado(resultado);
-    }
-    
-    private void jogarCrash() {
-        double aposta = view.obterAposta(usuarioLogado.getSaldo());
-        if (aposta == -1) {
-            view.mostrarMensagem("Aposta inválida!");
-            return;
-        }
-        
-        ResultadoJogo resultado = crash.jogar(aposta);
         view.mostrarResultado(resultado);
     }
 }

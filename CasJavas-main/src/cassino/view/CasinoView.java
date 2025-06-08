@@ -1,12 +1,13 @@
 package cassino.view;
+
 import cassino.controller.CasinoController;
+import cassino.factory.UsuarioFactory;
 import cassino.model.*;
 import java.util.Scanner;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
-
-
+import java.io.IOException;
 
 public class CasinoView {
     private Scanner scanner;
@@ -22,67 +23,93 @@ public class CasinoView {
         System.out.println("          CASINO UNIFICADO - POO/MVC");
         System.out.println("=".repeat(50));
     }
-    
-   public Usuario criarUsuario() {
-    System.out.print("Digite seu nome: ");
-    String nome = scanner.nextLine();
-    
-    System.out.print("Digite seu CPF: ");
-    String cpf = scanner.nextLine();
-    
-    System.out.print("Digite o número da conta: ");
-    String numeroConta = scanner.nextLine();
-    
-    System.out.print("Digite a agência: ");
-    String agencia = scanner.nextLine();
-    
-    System.out.print("Digite seu saldo inicial (mínimo R$1.00): R$");
-    
-    try {
-        double saldo = Double.parseDouble(scanner.nextLine());
-        if (saldo < 1.00) {
-            System.out.println("Saldo mínimo é R$1.00. Definindo saldo para R$100.00");
-            saldo = 100.00;
+
+    public Usuario criarUsuario() {
+        System.out.print("Digite seu nome: ");
+        String nome = scanner.nextLine();
+        
+        System.out.print("Digite seu CPF (apenas números): ");
+        String cpf = scanner.nextLine();
+        
+        System.out.print("Digite o número da conta: ");
+        String numeroConta = scanner.nextLine();
+        
+        System.out.print("Digite a agência: ");
+        String agencia = scanner.nextLine();
+        
+        System.out.print("Digite uma senha (mínimo 4 caracteres): ");
+        String senha = scanner.nextLine();
+        
+        System.out.print("Digite seu saldo inicial (mínimo R$1.00): R$");
+        
+        try {
+            double saldo = Double.parseDouble(scanner.nextLine());
+            
+            Usuario usuario = UsuarioFactory.criarUsuario(nome, cpf, numeroConta, agencia, saldo, senha);
+            
+            if (usuario != null) {
+                System.out.println("Usuário criado com sucesso!");
+                return usuario;
+            } else {
+                System.out.println("Erro ao criar usuário. Verifique os dados informados.");
+                return null;
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Valor inválido! Usando saldo padrão R$100.00");
+            return UsuarioFactory.criarUsuario(nome, cpf, numeroConta, agencia, senha);
         }
-        return new Usuario(nome, cpf, numeroConta, agencia, saldo);
-    } catch (Exception e) {
-        System.out.println("Valor inválido! Definindo saldo padrão R$100.00");
-        return new Usuario(nome, cpf, numeroConta, agencia, 100.00);
     }
-}
+    
+
+    public Usuario criarUsuarioDemo() {
+        System.out.print("Digite um nome para o usuário demo: ");
+        String nome = scanner.nextLine();
+        
+        System.out.print("Digite um CPF para o usuário demo: ");
+        String cpf = scanner.nextLine();
+        
+        return UsuarioFactory.criarUsuarioDemo(nome, cpf);
+    }
     
     public void mostrarStatus(Usuario usuario) {
         System.out.println("\nJogador: " + usuario.getNome());
+        System.out.println("CPF: " + usuario.getCpf());
         System.out.println("Saldo atual: R$" + df.format(usuario.getSaldo()));
     }   
 
     public double obterDeposito() {
-    System.out.print("Digite o valor a depositar: R$");
-    try {
-        double valor = Double.parseDouble(scanner.nextLine());
-        return (valor > 0) ? valor : 0;
-    } catch (Exception e) {
-        return 0;
+        System.out.print("Digite o valor a depositar: R$");
+        try {
+            double valor = Double.parseDouble(scanner.nextLine());
+            return (valor > 0) ? valor : 0;
+        } catch (Exception e) {
+            System.out.println("Valor inválido!");
+            return 0;
+        }
     }
-}
 
-public double obterSaque(double saldoAtual) {
-    System.out.print("Digite o valor a sacar (até R$" + df.format(saldoAtual) + "): R$");
-    try {
-        double valor = Double.parseDouble(scanner.nextLine());
-        return (valor > 0 && valor <= saldoAtual) ? valor : 0;
-    } catch (Exception e) {
-        return 0;
+    public double obterSaque(double saldoAtual) {
+        System.out.print("Digite o valor a sacar (até R$" + df.format(saldoAtual) + "): R$");
+        try {
+            double valor = Double.parseDouble(scanner.nextLine());
+            return (valor > 0 && valor <= saldoAtual) ? valor : 0;
+        } catch (Exception e) {
+            System.out.println("Valor inválido!");
+            return 0;
+        }
     }
-}
 
     public void adicionarSaldo(Usuario usuario) {
         System.out.print("Digite o valor a adicionar: R$");
         try {
             double valor = Double.parseDouble(scanner.nextLine());
             if (valor > 0) {
-                usuario.adicionarSaldo(valor);
-                System.out.println("Saldo atualizado: R$" + df.format(usuario.getSaldo()));
+                if (usuario.adicionarSaldo(valor)) {
+                    System.out.println("Saldo atualizado: R$" + df.format(usuario.getSaldo()));
+                } else {
+                    System.out.println("Erro ao adicionar saldo.");
+                }
             } else {
                 System.out.println("Valor inválido. Nenhum valor adicionado.");
             }
@@ -96,8 +123,11 @@ public double obterSaque(double saldoAtual) {
         try {
             double valor = Double.parseDouble(scanner.nextLine());
             if (valor > 0) {
-                usuario.retirarSaldo(valor);
-                System.out.println("Saldo atualizado: R$" + df.format(usuario.getSaldo()));
+                if (usuario.retirarSaldo(valor)) {
+                    System.out.println("Saldo atualizado: R$" + df.format(usuario.getSaldo()));
+                } else {
+                    System.out.println("Saldo insuficiente ou valor inválido.");
+                }
             } else {
                 System.out.println("Valor inválido. Nenhum valor retirado.");
             }
@@ -115,8 +145,6 @@ public double obterSaque(double saldoAtual) {
             return -1;
         }
     }
-
-    // Resto da classe segue igual...
 
     public Object[] obterParametrosRoleta() {
         System.out.println("\nTipo de aposta:");
@@ -144,7 +172,9 @@ public double obterSaque(double saldoAtual) {
                     return new Object[]{"cor", cores[cor]};
                 }
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            System.out.println("Entrada inválida!");
+        }
         
         return null;
     }
@@ -177,6 +207,8 @@ public double obterSaque(double saldoAtual) {
         System.out.println();
     }
     
+
+    
     public void mostrarResultado(ResultadoJogo resultado) {
         System.out.println("\n" + "=".repeat(20));
         System.out.println("RESULTADO");
@@ -185,22 +217,17 @@ public double obterSaque(double saldoAtual) {
         Object dadosJogo = resultado.getDadosJogo();
         if (dadosJogo != null) {
             if (dadosJogo instanceof Integer) {
-                // Resultado da Roleta
                 int numero = (Integer) dadosJogo;
-                Roleta roleta = new Roleta(null); // Instância temporária apenas para formatação
+                Roleta roleta = new Roleta(null);
                 System.out.println("Número sorteado: " + roleta.formatarNumero(numero));
             } else if (dadosJogo instanceof String) {
-                // Resultado do Caça-Níqueis
                 System.out.println("Resultado: " + dadosJogo);
             } else if (dadosJogo instanceof double[]) {
-                // Resultado do Crash
                 double[] valores = (double[]) dadosJogo;
                 System.out.println("Seu multiplicador: " + String.format("%.2f", valores[0]) + "x");
                 System.out.println("Crash point: " + String.format("%.2f", valores[1]) + "x");
             }
         }
-
-
         
         System.out.println(resultado.getMensagem());
         if (resultado.isGanhou()) {
@@ -218,43 +245,43 @@ public double obterSaque(double saldoAtual) {
         System.out.println("Saldo final: R$" + df.format(usuario.getSaldo()));
         System.out.println("=".repeat(40));
     }
-public int mostrarMenuPrincipal() {
-    System.out.println("\n" + "=".repeat(30));
-    System.out.println("MENU PRINCIPAL");
-    System.out.println("=".repeat(30));
-    System.out.println("1. Roleta Colorida");
-    System.out.println("2. Caça-Níqueis");
-    System.out.println("3. Crash");
-    System.out.println("4. Logout / Sair");  // MODIFICADO
-    System.out.println("5. Depositar saldo");
-    System.out.println("6. Retirar saldo");
-    System.out.println("7. Ver histórico de transações");
-    System.out.println("8. Ver estatísticas");
-    System.out.print("Escolha uma opção: ");
+    
+    public int mostrarMenuPrincipal() {
+        System.out.println("\n" + "=".repeat(30));
+        System.out.println("MENU PRINCIPAL");
+        System.out.println("=".repeat(30));
+        System.out.println("1. Roleta Colorida");
+        System.out.println("2. Caça-Níqueis");
+        System.out.println("3. Logout / Sair");
+        System.out.println("4. Depositar saldo");
+        System.out.println("5. Retirar saldo");
+        System.out.println("6. Ver histórico de transações");
+        System.out.println("7. Ver estatísticas");
+        System.out.print("Escolha uma opção: ");
 
-    try {
-        return Integer.parseInt(scanner.nextLine());
-    } catch (Exception e) {
-        return -1;
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (Exception e) {
+            return -1;
+        }
     }
-}
 
-        public void mostrarMensagemSucesso(String mensagem) {
-            System.out.println("✅ " + mensagem);
-        }
+    public void mostrarMensagemSucesso(String mensagem) {
+        System.out.println("✓ " + mensagem);
+    }
 
-        public void mostrarMensagemErro(String mensagem) {
-            System.out.println("❌ " + mensagem);
-        }
+    public void mostrarMensagemErro(String mensagem) {
+        System.out.println("✗ " + mensagem);
+    }
 
-        public void mostrarMensagemAviso(String mensagem) {
-            System.out.println("⚠️  " + mensagem);
-        }
+    public void mostrarMensagemAviso(String mensagem) {
+        System.out.println("⚠ " + mensagem);
+    }
 
-        public void aguardarEnter() {
-            System.out.println("\nPressione ENTER para continuar...");
-            scanner.nextLine();
-        }
+    public void aguardarEnter() {
+        System.out.println("\nPressione ENTER para continuar...");
+        scanner.nextLine();
+    }
     
     public void mostrarHistorico(Usuario usuario) {
         LogManager logManager = usuario.getLogManager();
@@ -269,7 +296,6 @@ public int mostrarMenuPrincipal() {
             return;
         }
         
-        // Mostrar apenas os últimos 20 registros para não poluir a tela
         int inicio = Math.max(0, logs.size() - 20);
         for (int i = inicio; i < logs.size(); i++) {
             System.out.println(logs.get(i).toString());

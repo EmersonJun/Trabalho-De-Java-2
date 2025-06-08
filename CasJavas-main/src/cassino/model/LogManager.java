@@ -16,15 +16,12 @@ public class LogManager {
     public LogManager(String nomeUsuario) {
         this.logs = new ArrayList<>();
         this.df = new DecimalFormat("0.00");
-        // Criar nome do arquivo baseado no nome do usuário
         this.nomeArquivo = "logs_" + nomeUsuario.replaceAll("[^a-zA-Z0-9]", "_") + ".txt";
         criarArquivoSeNaoExistir();
     }
     
-    
     private void criarArquivoSeNaoExistir() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo, true))) {
-            // Verifica se o arquivo está vazio para adicionar cabeçalho
             java.io.File arquivo = new java.io.File(nomeArquivo);
             if (arquivo.length() == 0) {
                 writer.println("=".repeat(80));
@@ -35,7 +32,6 @@ public class LogManager {
                 writer.println();
             }
         } catch (IOException e) {
-            System.out.println("Erro ao criar arquivo de log: " + e.getMessage());
         }
     }
     
@@ -49,9 +45,8 @@ public class LogManager {
     private void salvarLogNoArquivo(LogEntry entry) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(nomeArquivo, true))) {
             writer.println(entry.toString());
-            writer.flush(); // Garante que seja escrito imediatamente
+            writer.flush();
         } catch (IOException e) {
-            System.out.println("Erro ao salvar log no arquivo: " + e.getMessage());
         }
     }
     
@@ -131,7 +126,6 @@ public class LogManager {
             writer.println("=".repeat(80));
             writer.println();
         } catch (IOException e) {
-            System.out.println("Erro ao salvar estatísticas no arquivo: " + e.getMessage());
         }
     }
     

@@ -53,20 +53,4 @@ public class HistoricoTransacoes {
                 .mapToDouble(Transacao::getValor)
                 .sum();
     }
-    
-    public void imprimirHistorico() {
-        System.out.println("=== HISTÓRICO DE TRANSAÇÕES ===");
-        if (transacoes.isEmpty()) {
-            System.out.println("Nenhuma transação encontrada.");
-            return;
-        }
-        
-        transacoes.forEach(System.out::println);
-        
-        System.out.println("\n=== RESUMO ===");
-        System.out.printf("Total Depositado: R$ %.2f%n", getTotalDepositos());
-        System.out.printf("Total Gasto: R$ %.2f%n", getTotalGastos());
-        System.out.printf("Total Ganho: R$ %.2f%n", getTotalGanhos());
-        System.out.printf("Saldo Liquido: R$ %.2f%n", getTotalDepositos() + getTotalGanhos() - getTotalGastos());
-    }
 }

@@ -1,7 +1,7 @@
 package cassino.model;
 
 public class CacaNiqueis extends Jogo {
-    private static final String[] SIMBOLOS = {"7", "$", "#", "X", "O", "♥", "♦", "♣", "♠"};
+    private static final String[] SIMBOLOS = {"7", "00", "4", "2", "X", "Z", "A", "5", "6"};
     
     public CacaNiqueis(Usuario usuario) {
         super(usuario);

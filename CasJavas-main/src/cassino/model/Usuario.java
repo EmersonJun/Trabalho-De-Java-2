@@ -6,15 +6,17 @@ public class Usuario {
     private String numeroConta;
     private String agencia;
     private double saldo;
-    private LogManager logManager; // ADICIONAR ESTA LINHA
+    private String senha;
+    private LogManager logManager;
     
-    public Usuario(String nome, String cpf, String numeroConta, String agencia, double saldo) {
+    public Usuario(String nome, String cpf, String numeroConta, String agencia, double saldo, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.numeroConta = numeroConta;
         this.agencia = agencia;
         this.saldo = saldo;
-        this.logManager = new LogManager(nome); // PASSAR O NOME PARA O LOG MANAGER
+        this.senha = senha;
+        this.logManager = new LogManager(nome);
     }
     
     public String getNome() { return nome; }
@@ -22,51 +24,50 @@ public class Usuario {
     public String getNumeroConta() { return numeroConta; }
     public String getAgencia() { return agencia; }
     public double getSaldo() { return saldo; }
-    public LogManager getLogManager() { return logManager; } // GETTER PARA LOG MANAGER
+    public LogManager getLogManager() { return logManager; }
+    public String getSenha() { return senha; }
     
     public boolean temSaldoSuficiente(double valor) {
         return saldo >= valor;
     }
     
-    public void debitar(double valor) {
+    public boolean debitar(double valor) {
         if (temSaldoSuficiente(valor)) {
             double saldoAnterior = saldo;
             saldo -= valor;
-            // Log da perda/aposta
             logManager.adicionarLog("PERDA", "Aposta", valor, 
                 "Aposta realizada", saldoAnterior, saldo);
+            return true;
         }
+        return false;
     }
     
     public void creditar(double valor) {
         double saldoAnterior = saldo;
         saldo += valor;
-        // Log do ganho
         logManager.adicionarLog("GANHO", "Jogo", valor, 
             "Prêmio recebido", saldoAnterior, saldo);
     }
     
-    public void adicionarSaldo(double valor) {
+    public boolean adicionarSaldo(double valor) {
         if (valor > 0) {
             double saldoAnterior = saldo;
             saldo += valor;
-            // Log do depósito
             logManager.adicionarLog("DEPOSITO", "Sistema", valor, 
                 "Depósito realizado", saldoAnterior, saldo);
-        } else {
-            System.out.println("Valor inválido para adicionar saldo.");
+            return true;
         }
+        return false;
     }
     
-    public void retirarSaldo(double valor) {
+    public boolean retirarSaldo(double valor) {
         if (valor > 0 && valor <= saldo) {
             double saldoAnterior = saldo;
             saldo -= valor;
-            // Log do saque
             logManager.adicionarLog("SAQUE", "Sistema", valor, 
                 "Saque realizado", saldoAnterior, saldo);
-        } else {
-            System.out.println("Valor inválido para retirada.");
+            return true;
         }
+        return false;
     }
 }
