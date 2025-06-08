@@ -1,62 +1,6 @@
 ================================================================================
 CASINO UNIFICADO - LOG DE TRANSAÇÕES
-Arquivo criado em: 08/06/2025 16:02:42
+Arquivo criado em: 08/06/2025 16:44:55
 ================================================================================
 
-[08/06/2025 16:02:49] SAQUE - Sistema: R$1,00 (Saque realizado) | Saldo: R$2,00 -> R$1,00
-[08/06/2025 16:02:55] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
-[08/06/2025 16:03:26] SAQUE - Sistema: R$10,00 (Saque realizado) | Saldo: R$101,00 -> R$91,00
-[08/06/2025 16:03:37] PERDA - Aposta: R$11,00 (Aposta realizada) | Saldo: R$91,00 -> R$80,00
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 16:03:47
-================================================================================
-Total de transações: 4
-Total ganho: R$0,00
-Total perdido: R$11,00
-Total depositado: R$100,00
-Total sacado: R$11,00
-Lucro/Prejuízo líquido: R$-11,00 (PREJUÍZO)
-================================================================================
-
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 16:03:53
-================================================================================
-Total de transações: 4
-Total ganho: R$0,00
-Total perdido: R$11,00
-Total depositado: R$100,00
-Total sacado: R$11,00
-Lucro/Prejuízo líquido: R$-11,00 (PREJUÍZO)
-================================================================================
-
-[08/06/2025 16:05:10] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$1,00 -> R$0,00
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 16:05:10
-================================================================================
-Total de transações: 1
-Total ganho: R$0,00
-Total perdido: R$1,00
-Total depositado: R$0,00
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$-1,00 (PREJUÍZO)
-================================================================================
-
-[08/06/2025 16:24:08] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$1,00 -> R$0,00
-[08/06/2025 16:24:08] DEPOSITO - Sistema: R$0,10 (Depósito realizado) | Saldo: R$0,00 -> R$0,10
-[08/06/2025 16:25:00] PERDA - Aposta: R$0,10 (Aposta realizada) | Saldo: R$0,10 -> R$0,00
-[08/06/2025 16:25:00] DEPOSITO - Sistema: R$0,10 (Depósito realizado) | Saldo: R$0,00 -> R$0,10
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 16:25:38
-================================================================================
-Total de transações: 4
-Total ganho: R$0,00
-Total perdido: R$1,10
-Total depositado: R$0,20
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$-1,10 (PREJUÍZO)
-================================================================================
-
+[08/06/2025 16:45:00] SAQUE - Sistema: R$1,00 (Saque realizado) | Saldo: R$2,00 -> R$1,00

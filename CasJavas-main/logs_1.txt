@@ -1,78 +1,9 @@
 ================================================================================
 CASINO UNIFICADO - LOG DE TRANSAÇÕES
-Arquivo criado em: 08/06/2025 15:22:38
+Arquivo criado em: 08/06/2025 16:46:17
 ================================================================================
 
-[08/06/2025 15:22:50] PERDA - Aposta: R$11,00 (Aposta realizada) | Saldo: R$111,00 -> R$100,00
-[08/06/2025 15:23:03] PERDA - Aposta: R$11,00 (Aposta realizada) | Saldo: R$100,00 -> R$89,00
-[08/06/2025 15:23:11] PERDA - Aposta: R$11,00 (Aposta realizada) | Saldo: R$89,00 -> R$78,00
-[08/06/2025 15:25:55] PERDA - Aposta: R$10,00 (Aposta realizada) | Saldo: R$100,00 -> R$90,00
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 15:33:49
-================================================================================
-Total de transações: 0
-Total ganho: R$0,00
-Total perdido: R$0,00
-Total depositado: R$0,00
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$0,00 (LUCRO)
-================================================================================
-
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 15:35:16
-================================================================================
-Total de transações: 0
-Total ganho: R$0,00
-Total perdido: R$0,00
-Total depositado: R$0,00
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$0,00 (LUCRO)
-================================================================================
-
-[08/06/2025 15:35:33] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
-[08/06/2025 15:35:39] SAQUE - Sistema: R$50,00 (Saque realizado) | Saldo: R$101,00 -> R$51,00
-[08/06/2025 15:35:51] PERDA - Aposta: R$21,00 (Aposta realizada) | Saldo: R$51,00 -> R$30,00
-[08/06/2025 15:36:00] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$30,00 -> R$29,00
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 15:39:00
-================================================================================
-Total de transações: 4
-Total ganho: R$0,00
-Total perdido: R$22,00
-Total depositado: R$100,00
-Total sacado: R$50,00
-Lucro/Prejuízo líquido: R$-22,00 (PREJUÍZO)
-================================================================================
-
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 15:39:29
-================================================================================
-Total de transações: 0
-Total ganho: R$0,00
-Total perdido: R$0,00
-Total depositado: R$0,00
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$0,00 (LUCRO)
-================================================================================
-
-[08/06/2025 16:01:33] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$1,00 -> R$0,00
-[08/06/2025 16:25:56] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$1,00 -> R$0,00
-[08/06/2025 16:25:56] GANHO - Jogo: R$35,00 (Prêmio recebido) | Saldo: R$0,00 -> R$35,00
-[08/06/2025 16:26:16] PERDA - Aposta: R$35,00 (Aposta realizada) | Saldo: R$35,00 -> R$0,00
-[08/06/2025 16:26:16] DEPOSITO - Sistema: R$0,01 (Depósito realizado) | Saldo: R$0,00 -> R$0,01
-
-================================================================================
-ESTATÍSTICAS FINAIS - 08/06/2025 16:26:16
-================================================================================
-Total de transações: 4
-Total ganho: R$35,00
-Total perdido: R$36,00
-Total depositado: R$0,01
-Total sacado: R$0,00
-Lucro/Prejuízo líquido: R$-1,00 (PREJUÍZO)
-================================================================================
-
+[08/06/2025 16:46:27] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
+[08/06/2025 16:46:32] SAQUE - Sistema: R$50,00 (Saque realizado) | Saldo: R$101,00 -> R$51,00
+[08/06/2025 16:47:33] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
+[08/06/2025 16:47:41] SAQUE - Sistema: R$50,00 (Saque realizado) | Saldo: R$101,00 -> R$51,00

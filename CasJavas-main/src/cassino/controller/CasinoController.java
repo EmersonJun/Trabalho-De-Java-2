@@ -30,7 +30,7 @@ public class CasinoController {
                 
                 if (!mostrarMenuLogin()) {
                     
-                    view.mostrarMensagem("Obrigado por visitar o Casino Unificado!");
+                    view.mostrarMensagem("Obrigado por visitar o Cassino!");
                     break;
                 }
             } else {
@@ -47,7 +47,7 @@ public class CasinoController {
     private boolean mostrarMenuLogin() {
         while (true) {
             view.mostrarMensagem("\n" + "=".repeat(40));
-            view.mostrarMensagem("        CASINO UNIFICADO - LOGIN");
+            view.mostrarMensagem("        CASSINO - LOGIN");
             view.mostrarMensagem("=".repeat(40));
             view.mostrarMensagem("1. Fazer Login");
             view.mostrarMensagem("2. Criar Nova Conta");

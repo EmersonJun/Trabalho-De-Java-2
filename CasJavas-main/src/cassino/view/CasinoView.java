@@ -20,7 +20,7 @@ public class CasinoView {
     
     public void mostrarBoasVindas() {
         System.out.println("=".repeat(50));
-        System.out.println("          CASINO UNIFICADO - POO/MVC");
+        System.out.println("         CASSINO         ");
         System.out.println("=".repeat(50));
     }
 
@@ -193,7 +193,7 @@ public class CasinoView {
     
     public void mostrarAnimacaoCacaNiqueis() throws InterruptedException {
         System.out.println("\nGirando os rolos...");
-        String[] simbolos = {"7", "$", "#", "X", "O", "♥", "♦", "♣", "♠"};
+        String[] simbolos = {"7", "00", "4", "2", "X", "Z", "A", "5", "6"};
         Random random = new Random();
         
         for (int giro = 0; giro < 10; giro++) {
@@ -264,18 +264,6 @@ public class CasinoView {
         } catch (Exception e) {
             return -1;
         }
-    }
-
-    public void mostrarMensagemSucesso(String mensagem) {
-        System.out.println("✓ " + mensagem);
-    }
-
-    public void mostrarMensagemErro(String mensagem) {
-        System.out.println("✗ " + mensagem);
-    }
-
-    public void mostrarMensagemAviso(String mensagem) {
-        System.out.println("⚠ " + mensagem);
     }
 
     public void aguardarEnter() {
