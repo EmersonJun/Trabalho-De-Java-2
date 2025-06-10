@@ -5,7 +5,7 @@ public class ResultadoJogo {
     private double valorGanho;
     private String mensagem;
     private DadosExtras dadosExtras;
-    private Object dadosJogo; 
+    private DadosJogo dadosJogo; 
     
     public ResultadoJogo(boolean ganhou, double valorGanho, String mensagem) {
         this.ganhou = ganhou;
@@ -20,36 +20,22 @@ public class ResultadoJogo {
         this.dadosExtras = dadosExtras;
     }
     
-    public ResultadoJogo(boolean ganhou, double valorGanho, String mensagem, Object dadosJogo) {
+    public ResultadoJogo(boolean ganhou, double valorGanho, String mensagem, DadosJogo dadosJogo) {
         this(ganhou, valorGanho, mensagem);
         this.dadosJogo = dadosJogo;
     }
     
-    public boolean isGanhou() { 
-        return ganhou; 
-    }
-    
-    public double getValorGanho() { 
-        return valorGanho; 
-    }
-    
-    public String getMensagem() { 
-        return mensagem; 
-    }
-    
-    public DadosExtras getDadosExtras() {
-        return dadosExtras;
-    }
-    
-    public Object getDadosJogo() {
-        return dadosJogo;
-    }
+    public boolean isGanhou() { return ganhou; }
+    public double getValorGanho() { return valorGanho; }
+    public String getMensagem() { return mensagem; }
+    public DadosExtras getDadosExtras() { return dadosExtras; }
+    public DadosJogo getDadosJogo() { return dadosJogo; }
     
     public void setDadosExtras(DadosExtras dadosExtras) {
         this.dadosExtras = dadosExtras;
     }
     
-    public void setDadosJogo(Object dadosJogo) {
+    public void setDadosJogo(DadosJogo dadosJogo) {
         this.dadosJogo = dadosJogo;
     }
 }

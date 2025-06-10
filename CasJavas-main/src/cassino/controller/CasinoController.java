@@ -1,11 +1,9 @@
 package cassino.controller;
+
 import cassino.view.CasinoView;
 import cassino.factory.JogoFactory;
-
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.List;
-
 import cassino.model.*;
 
 public class CasinoController {
@@ -24,19 +22,14 @@ public class CasinoController {
     public void iniciar() throws InterruptedException {
         view.mostrarBoasVindas();
         
-        
         while (true) {
             if (usuarioLogado == null) {
-                
                 if (!mostrarMenuLogin()) {
-                    
                     view.mostrarMensagem("Obrigado por visitar o Cassino!");
                     break;
                 }
             } else {
-                
                 if (!executarSessaoCasino()) {
-                    
                     continue;
                 }
                 fazerLogout();
@@ -87,16 +80,15 @@ public class CasinoController {
             view.mostrarMensagem("Digite sua senha: ");
             String senhaDigitada = scanner.nextLine().trim();
 
-                if (!usuario.getSenha().equals(senhaDigitada)) {
-                    view.mostrarMensagem("Senha incorreta. Tente novamente.");
-                    return false;
-                }
-                    usuarioLogado = usuario;
+            if (!usuario.getSenha().equals(senhaDigitada)) {
+                view.mostrarMensagem("Senha incorreta. Tente novamente.");
+                return false;
+            }
+            usuarioLogado = usuario;
 
             roleta = (Roleta) JogoFactory.criarJogo("roleta", usuarioLogado);
             cacaNiqueis = (CacaNiqueis) JogoFactory.criarJogo("caca-niqueis", usuarioLogado);
 
-            
             view.mostrarMensagem("=".repeat(50));
             view.mostrarMensagem("Login realizado com sucesso!");
             view.mostrarMensagem("Bem-vindo de volta, " + usuarioLogado.getNome() + "!");
@@ -127,11 +119,12 @@ public class CasinoController {
             view.mostrarMensagem("CPF não pode estar vazio!");
             return false;
         }
+        
         view.mostrarMensagem("Digite uma senha para sua conta: ");
-            String senha = scanner.nextLine().trim();
+        String senha = scanner.nextLine().trim();
 
         if (senha.isEmpty()) {
-            view.mostrarMensagem("senha não pode estar vazio!");
+            view.mostrarMensagem("senha não pode estar vazia!");
             return false;
         }
         
@@ -156,7 +149,6 @@ public class CasinoController {
         roleta = (Roleta) JogoFactory.criarJogo("roleta", usuarioLogado);
         cacaNiqueis = (CacaNiqueis) JogoFactory.criarJogo("caca-niqueis", usuarioLogado);
 
-        
         view.mostrarMensagem("=".repeat(50));
         view.mostrarMensagem("Conta criada com sucesso!");
         view.mostrarMensagem("Bem-vindo ao Casino Unificado, " + nome + "!");
@@ -227,7 +219,6 @@ public class CasinoController {
     
     private void fazerLogout() {
         if (usuarioLogado != null) {
-
             usuarioLogado.getLogManager().salvarEstatisticasNoArquivo();
             
             view.mostrarMensagem("\n" + "=".repeat(50));
@@ -260,7 +251,7 @@ public class CasinoController {
             usuarioLogado.retirarSaldo(saque);
             view.mostrarMensagem("Saque de R$" + String.format("%.2f", saque) + " realizado com sucesso!");
         } else {
-            view.mostrarMensagem("❌ Valor de saque inválido ou cancelado.");
+            view.mostrarMensagem("Valor de saque inválido ou cancelado.");
         }
     }
     
@@ -294,6 +285,7 @@ public class CasinoController {
         }
     }
     
+    
     private void jogarRoleta() throws InterruptedException {
         double aposta = view.obterAposta(usuarioLogado.getSaldo());
         if (aposta == -1) {
@@ -301,17 +293,20 @@ public class CasinoController {
             return;
         }
         
-        Object[] parametros = view.obterParametrosRoleta();
+        
+        ParametrosRoleta parametros = view.obterParametrosRoleta();
         if (parametros == null) {
             view.mostrarMensagem("Parâmetros inválidos!");
             return;
         }
         
         view.mostrarAnimacaoRoleta(roleta);
+        // Usa a nova assinatura do método jogar
         ResultadoJogo resultado = roleta.jogar(aposta, parametros);
         view.mostrarResultado(resultado);
     }
     
+    // MÉTODO REFATORADO - Usa ParametrosCacaNiqueis
     private void jogarCacaNiqueis() throws InterruptedException {
         double aposta = view.obterAposta(usuarioLogado.getSaldo());
         if (aposta == -1) {
@@ -320,7 +315,8 @@ public class CasinoController {
         }
         
         view.mostrarAnimacaoCacaNiqueis();
-        ResultadoJogo resultado = cacaNiqueis.jogar(aposta);
+        ParametrosCacaNiqueis parametros = new ParametrosCacaNiqueis();
+        ResultadoJogo resultado = cacaNiqueis.jogar(aposta, parametros);
         view.mostrarResultado(resultado);
     }
 }

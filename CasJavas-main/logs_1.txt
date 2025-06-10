@@ -1,9 +1,40 @@
 ================================================================================
 CASINO UNIFICADO - LOG DE TRANSAÇÕES
-Arquivo criado em: 08/06/2025 16:46:17
+Arquivo criado em: 10/06/2025 12:25:25
 ================================================================================
 
-[08/06/2025 16:46:27] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
-[08/06/2025 16:46:32] SAQUE - Sistema: R$50,00 (Saque realizado) | Saldo: R$101,00 -> R$51,00
-[08/06/2025 16:47:33] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$1,00 -> R$101,00
-[08/06/2025 16:47:41] SAQUE - Sistema: R$50,00 (Saque realizado) | Saldo: R$101,00 -> R$51,00
+[10/06/2025 12:25:41] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$1,00 -> R$0,00
+[10/06/2025 12:25:41] DEPOSITO - Sistema: R$0,10 (Depósito realizado) | Saldo: R$0,00 -> R$0,10
+[10/06/2025 12:25:51] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$0,10 -> R$100,10
+[10/06/2025 12:25:57] PERDA - Aposta: R$11,00 (Aposta realizada) | Saldo: R$100,10 -> R$89,10
+[10/06/2025 13:21:54] PERDA - Aposta: R$1,00 (Aposta realizada) | Saldo: R$100,00 -> R$99,00
+[10/06/2025 13:22:00] PERDA - Aposta: R$2,00 (Aposta realizada) | Saldo: R$99,00 -> R$97,00
+[10/06/2025 13:22:00] GANHO - Jogo: R$4,00 (Prêmio recebido) | Saldo: R$97,00 -> R$101,00
+[10/06/2025 13:22:05] DEPOSITO - Sistema: R$100,00 (Depósito realizado) | Saldo: R$101,00 -> R$201,00
+[10/06/2025 13:22:11] SAQUE - Sistema: R$100,00 (Saque realizado) | Saldo: R$201,00 -> R$101,00
+
+================================================================================
+ESTATÍSTICAS FINAIS - 10/06/2025 13:22:26
+================================================================================
+Total de transações: 5
+Total ganho: R$4,00
+Total perdido: R$3,00
+Total depositado: R$100,00
+Total sacado: R$100,00
+Lucro/Prejuízo líquido: R$1,00 (LUCRO)
+================================================================================
+
+[10/06/2025 13:22:43] PERDA - Aposta: R$101,00 (Aposta realizada) | Saldo: R$101,00 -> R$0,00
+[10/06/2025 13:22:43] DEPOSITO - Sistema: R$0,10 (Depósito realizado) | Saldo: R$0,00 -> R$0,10
+
+================================================================================
+ESTATÍSTICAS FINAIS - 10/06/2025 13:22:47
+================================================================================
+Total de transações: 7
+Total ganho: R$4,00
+Total perdido: R$104,00
+Total depositado: R$100,10
+Total sacado: R$100,00
+Lucro/Prejuízo líquido: R$-100,00 (PREJUÍZO)
+================================================================================
+

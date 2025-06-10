@@ -4,7 +4,7 @@ import cassino.controller.CasinoController;
 import cassino.factory.UsuarioFactory;
 import cassino.model.*;
 import java.util.Scanner;
-import java.text.DecimalFormat;
+import java.text.DecimalFormat;  
 import java.util.List;
 import java.util.Random;
 import java.io.IOException;
@@ -146,39 +146,65 @@ public class CasinoView {
         }
     }
 
-    public Object[] obterParametrosRoleta() {
-        System.out.println("\nTipo de aposta:");
-        System.out.println("1. Número específico (paga 35x)");
-        System.out.println("2. Cor (paga 1.8x ou 35x para verde)");
-        System.out.print("Escolha: ");
+   public ParametrosRoleta obterParametrosRoleta() {
+    Scanner scanner = new Scanner(System.in);
+    
+    mostrarMensagem("\n--- TIPOS DE APOSTA NA ROLETA ---");
+    mostrarMensagem("1. Apostar em um número específico (0-36) - Paga 35x");
+    mostrarMensagem("2. Apostar em uma cor (VERMELHO/PRETO/VERDE) - Paga 1.8x ou 35x");
+    mostrarMensagem("3. Cancelar");
+    mostrarMensagem("Escolha o tipo de aposta: ");
+    
+    try {
+        int opcao = Integer.parseInt(scanner.nextLine().trim());
         
-        try {
-            int tipo = Integer.parseInt(scanner.nextLine());
-            if (tipo == 1) {
-                System.out.print("Digite o número (0-36): ");
-                int numero = Integer.parseInt(scanner.nextLine());
-                if (numero >= 0 && numero <= 36) {
-                    return new Object[]{"numero", numero};
+        switch (opcao) {
+            case 1: 
+                mostrarMensagem("Digite o número (0-36): ");
+                int numero = Integer.parseInt(scanner.nextLine().trim());
+                
+                if (numero < 0 || numero > 36) {
+                    mostrarMensagem("Número inválido! Deve ser entre 0 e 36.");
+                    return null;
                 }
-            } else if (tipo == 2) {
-                System.out.println("Escolha a cor:");
-                System.out.println("1. Vermelho");
-                System.out.println("2. Preto"); 
-                System.out.println("3. Verde (0)");
-                System.out.print("Opção: ");
-                int cor = Integer.parseInt(scanner.nextLine());
-                String[] cores = {"", "VERMELHO", "PRETO", "VERDE"};
-                if (cor >= 1 && cor <= 3) {
-                    return new Object[]{"cor", cores[cor]};
+                
+                return new ParametrosRoleta("numero", numero);
+                
+            case 2: 
+                mostrarMensagem("Escolha a cor:");
+                mostrarMensagem("1. VERMELHO");
+                mostrarMensagem("2. PRETO"); 
+                mostrarMensagem("3. VERDE");
+                mostrarMensagem("Opção: ");
+                
+                int opcaoCor = Integer.parseInt(scanner.nextLine().trim());
+                String cor;
+                
+                switch (opcaoCor) {
+                    case 1: cor = "VERMELHO"; break;
+                    case 2: cor = "PRETO"; break;
+                    case 3: cor = "VERDE"; break;
+                    default:
+                        mostrarMensagem("Cor inválida!");
+                        return null;
                 }
-            }
-        } catch (Exception e) {
-            System.out.println("Entrada inválida!");
+                
+                return new ParametrosRoleta("cor", cor);
+                
+            case 3: 
+                return null;
+                
+            default:
+                mostrarMensagem("Opção inválida!");
+                return null;
         }
         
+    } catch (NumberFormatException e) {
+        mostrarMensagem("Entrada inválida!");
         return null;
     }
-    
+}
+
     public void mostrarAnimacaoRoleta(Roleta roleta) throws InterruptedException {
         System.out.println("\nGirando a roleta...");
         Random random = new Random();

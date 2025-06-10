@@ -13,7 +13,7 @@ public class CacaNiqueis extends Jogo {
     }
     
     @Override
-    public ResultadoJogo jogar(double aposta, Object... parametros) {
+    public ResultadoJogo jogar(double aposta, ParametrosJogo parametros) {
         if (!validarAposta(aposta)) {
             return new ResultadoJogo(false, 0, "Aposta inválida!");
         }
@@ -24,17 +24,18 @@ public class CacaNiqueis extends Jogo {
                        random.nextInt(SIMBOLOS.length)};
         
         String resultado = "[" + SIMBOLOS[rolos[0]] + "] [" + SIMBOLOS[rolos[1]] + "] [" + SIMBOLOS[rolos[2]] + "]";
+        DadosCacaNiqueis dadosCaca = new DadosCacaNiqueis(resultado);
         
         if (rolos[0] == rolos[1] && rolos[1] == rolos[2]) {
             double ganho = aposta * 5.0;
             usuario.creditar(ganho);
-            return new ResultadoJogo(true, ganho, "JACKPOT! 3 símbolos iguais!", resultado);
+            return new ResultadoJogo(true, ganho, "JACKPOT! 3 símbolos iguais!", dadosCaca);
         } else if (rolos[0] == rolos[1] || rolos[1] == rolos[2] || rolos[0] == rolos[2]) {
             double ganho = aposta * 2.0;
             usuario.creditar(ganho);
-            return new ResultadoJogo(true, ganho, "2 símbolos iguais!", resultado);
+            return new ResultadoJogo(true, ganho, "2 símbolos iguais!", dadosCaca);
         }
         
-        return new ResultadoJogo(false, 0, "Nenhuma combinação.", resultado);
+        return new ResultadoJogo(false, 0, "Nenhuma combinação.", dadosCaca);
     }
 }

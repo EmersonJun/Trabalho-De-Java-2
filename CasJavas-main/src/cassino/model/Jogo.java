@@ -1,4 +1,5 @@
 package cassino.model;
+
 import java.util.Random;
 
 public abstract class Jogo {
@@ -10,10 +11,10 @@ public abstract class Jogo {
         this.random = new Random();
     }
     
-    public abstract ResultadoJogo jogar(double aposta, Object... parametros);
     public abstract String getNome();
+    public abstract ResultadoJogo jogar(double aposta, ParametrosJogo parametros);
     
     protected boolean validarAposta(double aposta) {
-        return aposta >= 0.10 && usuario.temSaldoSuficiente(aposta);
+        return aposta > 0 && aposta <= usuario.getSaldo();
     }
 }

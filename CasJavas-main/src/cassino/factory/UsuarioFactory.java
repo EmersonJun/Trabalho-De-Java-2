@@ -45,7 +45,7 @@ public class UsuarioFactory {
     }
     
     public static Usuario criarUsuarioDemo(String nome, String cpf) {
-        return criarUsuario(nome, cpf, "12345-6", "Agencia Demo", 1000.00, "123456");
+        return criarUsuario(nome, cpf, "123456", "Agencia Demo", 1000.00, "123456");
     }
     
     public static Usuario criarUsuarioDemo(String nome, String cpf, String senha) {

@@ -13,35 +13,34 @@ public class Roleta extends Jogo {
     }
     
     @Override
-    public ResultadoJogo jogar(double aposta, Object... parametros) {
+    public ResultadoJogo jogar(double aposta, ParametrosJogo parametros) {
         if (!validarAposta(aposta)) {
             return new ResultadoJogo(false, 0, "Aposta inválida!");
         }
         
-        String tipoAposta = (String) parametros[0];
+        ParametrosRoleta params = (ParametrosRoleta) parametros;
         usuario.debitar(aposta);
         
         int numeroSorteado = random.nextInt(37);
+        DadosRoleta dadosRoleta = new DadosRoleta(numeroSorteado);
         
-        if ("numero".equals(tipoAposta)) {
-            int numeroEscolhido = (Integer) parametros[1];
-            if (numeroEscolhido == numeroSorteado) {
+        if ("numero".equals(params.getTipoAposta())) {
+            if (params.getNumeroEscolhido() == numeroSorteado) {
                 double ganho = aposta * 35;
                 usuario.creditar(ganho);
-                return new ResultadoJogo(true, ganho, "PARABÉNS! Acertou o número!", numeroSorteado);
+                return new ResultadoJogo(true, ganho, "PARABÉNS! Acertou o número!", dadosRoleta);
             }
-        } else if ("cor".equals(tipoAposta)) {
-            String corEscolhida = (String) parametros[1];
+        } else if ("cor".equals(params.getTipoAposta())) {
             String corSorteada = getCorNumero(numeroSorteado);
-            if (corEscolhida.equals(corSorteada)) {
-                double multiplicador = "VERDE".equals(corEscolhida) ? 35 : 1.8;
+            if (params.getCorEscolhida().equals(corSorteada)) {
+                double multiplicador = "VERDE".equals(params.getCorEscolhida()) ? 35 : 1.8;
                 double ganho = aposta * multiplicador;
                 usuario.creditar(ganho);
-                return new ResultadoJogo(true, ganho, "PARABÉNS! Acertou a cor!", numeroSorteado);
+                return new ResultadoJogo(true, ganho, "PARABÉNS! Acertou a cor!", dadosRoleta);
             }
         }
         
-        return new ResultadoJogo(false, 0, "Não foi dessa vez!", numeroSorteado);
+        return new ResultadoJogo(false, 0, "Não foi dessa vez!", dadosRoleta);
     }
     
     private String getCorNumero(int numero) {
