@@ -1,19 +1,19 @@
-
 package cassino.factory;
 
 import cassino.model.*;
 
 public class JogoFactory {
     public static Jogo criarJogo(String nome, Usuario usuario) {
-        switch (nome.toLowerCase()) {
-            case "roleta":
-                return new Roleta(usuario);
-            case "caca-niqueis":
-                return new CacaNiqueis(usuario);
-                 default:
-                throw new IllegalArgumentException("Jogo desconhecido: " + nome);
+        String nomeFormatado = nome.toLowerCase();
+
+        if (nomeFormatado.equals("roleta")) {
+            return new Roleta(usuario);
         }
+
+        if (nomeFormatado.equals("caca-niqueis")) {
+            return new CacaNiqueis(usuario);
+        }
+
+        throw new IllegalArgumentException("Jogo desconhecido: " + nome);
     }
 }
-
-

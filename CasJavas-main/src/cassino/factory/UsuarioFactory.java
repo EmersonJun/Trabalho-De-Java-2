@@ -42,10 +42,10 @@ public class UsuarioFactory {
     public static Usuario criarUsuario(String nome, String cpf, String numeroConta, 
                                      String agencia, String senha) {
         return criarUsuario(nome, cpf, numeroConta, agencia, 100.00, senha);
-    }
+    }    
     
     public static Usuario criarUsuarioDemo(String nome, String cpf) {
-        return criarUsuario(nome, cpf, "123456", "Agencia Demo", 1000.00, "123456");
+        return criarUsuario(nome, cpf, "123456", "Agencia Demo", 1000.00, "123");
     }
     
     public static Usuario criarUsuarioDemo(String nome, String cpf, String senha) {
@@ -109,10 +109,10 @@ public class UsuarioFactory {
             return false;
         }
         
-        if (!validarCPF(cpf)) {
-            System.out.println("CPF deve ter 11 dígitos!");
-            return false;
-        }
+        // if (!validarCPF(cpf)) {
+        //     System.out.println("CPF deve ter 11 dígitos!");
+        //     return false;
+        // }
         
         if (numeroConta == null || numeroConta.trim().isEmpty()) {
             System.out.println("Número da conta não pode estar vazio!");
@@ -129,10 +129,10 @@ public class UsuarioFactory {
             return false;
         }
         
-        if (senha.trim().length() < 4) {
-            System.out.println("Senha deve ter pelo menos 4 caracteres!");
-            return false;
-        }
+        // if (senha.trim().length() < 4) {
+        //     System.out.println("Senha deve ter pelo menos 4 caracteres!");
+        //     return false;
+        // }
         
         if (saldo < 0) {
             System.out.println("Saldo não pode ser negativo!");

@@ -1,5 +1,7 @@
 package cassino.model;
 
-public abstract class ParametrosJogo {
+public interface ParametrosJogo {
+
+    
     
 }

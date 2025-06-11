@@ -1,7 +1,7 @@
 package cassino.controller;
 
 import cassino.view.CasinoView;
-import cassino.factory.JogoFactory;
+import cassino.factory.*;
 import java.util.HashMap;
 import java.util.Scanner;
 import cassino.model.*;
@@ -13,15 +13,28 @@ public class CasinoController {
     private Roleta roleta;
     private CacaNiqueis cacaNiqueis;
     private Scanner scanner;
-    
+    private UsuarioFactory user;
     public CasinoController() {
         view = new CasinoView();
         scanner = new Scanner(System.in);
     }
+
+    private void preCarregarUsuarios() {
+    Usuario demo1 = new Usuario("João Demo", "12345678901", "00123", "Agência A", 500.00, "senha1");
+    Usuario demo2 = new Usuario("Maria Demo", "98765432100", "00456", "Agência B", 1000.00, "senha2");
+
+    usuarios.put(demo1.getCpf(), demo1);
+    usuarios.put(demo2.getCpf(), demo2);
+
+    view.mostrarMensagem("Usuários de demonstração carregados:");
+    view.mostrarMensagem("- João Demo / CPF: 12345678901 / Senha: senha1");
+    view.mostrarMensagem("- Maria Demo / CPF: 98765432100 / Senha: senha2");
+}
+
     
     public void iniciar() throws InterruptedException {
         view.mostrarBoasVindas();
-        
+        preCarregarUsuarios();
         while (true) {
             if (usuarioLogado == null) {
                 if (!mostrarMenuLogin()) {
@@ -112,7 +125,7 @@ public class CasinoController {
             return false;
         }
         
-        view.mostrarMensagem("Digite seu CPF (apenas números): ");
+        view.mostrarMensagem("Digite seu CPF: ");
         String cpf = scanner.nextLine().trim();
         
         if (cpf.isEmpty()) {
@@ -285,14 +298,12 @@ public class CasinoController {
         }
     }
     
-    
     private void jogarRoleta() throws InterruptedException {
         double aposta = view.obterAposta(usuarioLogado.getSaldo());
         if (aposta == -1) {
             view.mostrarMensagem("Aposta inválida!");
             return;
         }
-        
         
         ParametrosRoleta parametros = view.obterParametrosRoleta();
         if (parametros == null) {
@@ -301,12 +312,10 @@ public class CasinoController {
         }
         
         view.mostrarAnimacaoRoleta(roleta);
-        // Usa a nova assinatura do método jogar
         ResultadoJogo resultado = roleta.jogar(aposta, parametros);
         view.mostrarResultado(resultado);
     }
     
-    // MÉTODO REFATORADO - Usa ParametrosCacaNiqueis
     private void jogarCacaNiqueis() throws InterruptedException {
         double aposta = view.obterAposta(usuarioLogado.getSaldo());
         if (aposta == -1) {

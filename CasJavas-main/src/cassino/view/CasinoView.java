@@ -191,7 +191,7 @@ public class CasinoView {
                 
                 return new ParametrosRoleta("cor", cor);
                 
-            case 3: 
+            case 3: // Cancelar
                 return null;
                 
             default:
