@@ -1,5 +1,17 @@
 # 🎰 Cassino Virtual em Java (MVC + OOP)
 
+Envolvidos no projeto:
+Emerson da Silveira Dutra Júnior RGM: 38765306
+
+Taynara Piloneto Mafra RGM: 39470253
+ 
+ João Carlos Fava Filho  RGM: 38517809
+
+ Jaques de Oliveira Vasconcelos: RGM:38774372
+
+ Kayo Henrique Batista Goncalves: RGM: 39186288
+
+
 Bem-vindo ao **Cassino Virtual**!  
 Este projeto em **Java** simula uma experiência de cassino no console, com suporte a jogos como **Roleta Colorida** e **Caça-Níqueis**, além de gerenciamento completo de usuários, transações e estatísticas.
 
